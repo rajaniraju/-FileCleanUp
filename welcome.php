@@ -26,6 +26,11 @@
         $number = 'xxx-xx-' . substr($parts[0], -4);
         array_push($processedLine, $number);
         // $parts[1] = fname
+        //preg_replace($parts[1]) 
+        $fname = preg_replace( '/[\W]/', '', $parts[1]);
+        $fname = preg_replace('/[0-9]+/', '', $fname);
+        array_push($processedLine, $fname);
+        
         // $parts[2] = lname
         // $parts[3] = type
         // $parts[4] = effective

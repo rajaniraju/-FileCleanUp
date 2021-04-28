@@ -3,7 +3,7 @@
 <body>
 
     <?php
-    $fn = fopen("c:\\Temp\\test.txt", "r");
+    $fn = fopen("c:\\Temp\\test_data_in.txt", "r");
 
     while (!feof($fn)) {
         // Read 1 line at a time.
@@ -24,10 +24,10 @@
         echo '</pre>';
         //Use the preg_replace function to remove any characters that are not letters, hyphens, or single spaces from the FIRST and LAST names.
 
-        $array = preg_replace("/\d?\dIPT\.\w/", "IPT", $parts);
+        /*$array = preg_replace("/\d?\dIPT\.\w/", "IPT", $parts);
         echo '<pre>';
         var_dump($array) . '<br>';
-        echo '</pre>';
+        echo '</pre>';*/
     }
 
     fclose($fn);

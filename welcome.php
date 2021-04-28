@@ -19,18 +19,23 @@
 
         // Split the line by tab.
         $parts = preg_split('/\s+/', $result);
-        // $parts[0] = ID
+        
+        // Process each word
+        $processedLine = [];
+        // $parts[0] = ID        
+        $number = 'xxx-xx-' . substr($parts[0], -4);
+        array_push($processedLine, $number);
         // $parts[1] = fname
         // $parts[2] = lname
         // $parts[3] = type
         // $parts[4] = effective
 
-        // Process each word
         
+        array_push($processedList, $processedLine);
 
         // Add procesed word to another string
         echo '<pre>';
-        print ($result);
+        print($result);
         echo '</pre>';
     }
 
@@ -38,7 +43,7 @@
 
     foreach ($processedList as $line) {
         foreach ($line as $header) {
-            print($header) . "\t&nbsp;&nbsp;";
+            print ($header) . "\t&nbsp;&nbsp;";
         }
         echo '</br>';
     }

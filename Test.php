@@ -9,7 +9,7 @@
     $mArray = [];
     $dArray = [];
     $lArray = [];
-
+//checking
     while (!feof($fn)) {
         // Read 1 line at a time.
         $result = fgets($fn);

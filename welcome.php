@@ -55,27 +55,25 @@
         $weekday = date("l", $timestamp);
         $normalized_weekday = strtolower($weekday);
         echo $normalized_weekday;
-        if ($normalized_weekday == "saturday") 
-         {
-            $modified1_date = date('Y-m-d', strtotime($mod_date. ' + 2 days'));
+        //check weekend
+        if ($normalized_weekday == "saturday") {
+            $modified1_date = date('Y-m-d', strtotime($mod_date . ' + 2 days'));
             echo $modified1_date;
             array_push($processedLine, $modified1_date);
             echo "true";
-        } else if($normalized_weekday == "sunday"){
-            $modified2_date = date('Y-m-d', strtotime($mod_date. ' + 1 day'));
-           echo $modified2_date;
-           array_push($processedLine, $modified2_date);
-           echo"true";
-        }
-        
-        else {
+        } else if ($normalized_weekday == "sunday") {
+            $modified2_date = date('Y-m-d', strtotime($mod_date . ' + 1 day'));
+            echo $modified2_date;
+            array_push($processedLine, $modified2_date);
+            echo "true";
+        } else {
             echo "false";
             array_push($processedLine, $mod_date);
         }
-        
-        //check weekend
-        
-        
+
+
+
+
 
 
         // 1. Convert string to date object

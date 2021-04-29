@@ -6,6 +6,9 @@
     $fn = fopen("c:\\Temp\\test_data_in.txt", "r");
     $headerProcessed = false;
     $processedList = [["ID", "First", "Last", "Type", "Eff.", "Term"]];
+    $mArray = [];
+    $dArray = [];
+    $lArray = [];
 
     while (!feof($fn)) {
         // Read 1 line at a time.
@@ -38,7 +41,8 @@
         array_push($processedLine, $lname);
 
         // $parts[3] = type
-        array_push($processedLine, $parts[3]);
+        $type = $parts[3];
+        array_push($processedLine, $type);
 
         // $parts[4] = effective
         array_push($processedLine, $parts[4]);
@@ -47,16 +51,23 @@
         $time = strtotime($parts[4]);
         $term = date('Y-m-d', $time);
         $mod_date = date('Y-m-d', strtotime($term . ' + 100 days'));
-
         array_push($processedLine, $mod_date);
-
 
         // 1. Convert string to date object
         // 2. Add 100 days to date object.
         // 3. add the result as 'Term'
 
-
-        array_push($processedList, $processedLine);
+        switch (strtoupper($type)) {
+            case "M":
+                array_push($mArray, $processedLine);
+                break;
+            case "L":
+                array_push($lArray, $processedLine);
+                break;
+            case "D":
+                array_push($dArray, $processedLine);
+                break;
+        }
 
         // Add procesed word to another string
         echo '<pre>';
@@ -65,6 +76,7 @@
     }
 
     fclose($fn);
+    $processedList = array_merge($mArray, $dArray, $lArray);
 
     // Write processed string into a new file.
     // TODO

@@ -18,8 +18,7 @@
         // }
 
         // Split the line by tab.
-
-        $parts = preg_split('/\s+/', $result);
+        $parts = preg_split('/\t+/', $result);
 
         // Process each word
         $processedLine = [];

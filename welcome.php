@@ -7,7 +7,6 @@
     $headerProcessed = false;
     $processedList = [["ID", "First", "Last", "Type", "Eff.", "Term"]];
 
-
     while (!feof($fn)) {
         // Read 1 line at a time.
         $result = fgets($fn);
@@ -47,16 +46,16 @@
 
         // Compute  new column 'Term'.
         $time = strtotime($parts[4]);
-        $term = date('Y-m-d',$time);
-        $mod_date =date('Y-m-d', strtotime($term. ' + 100 days'));
-        
+        $term = date('Y-m-d', $time);
+        $mod_date = date('Y-m-d', strtotime($term . ' + 100 days'));
+
         array_push($processedLine, $mod_date);
-        
+
 
         // 1. Convert string to date object
         // 2. Add 100 days to date object.
         // 3. add the result as 'Term'
-        
+
 
         array_push($processedList, $processedLine);
 
@@ -68,20 +67,24 @@
 
     fclose($fn);
 
-    foreach ($processedList as $line) {
-        foreach ($line as $header) {
-           
-            print ($header) . "\t&nbsp;&nbsp;";
-            
-        }
-        echo '</br>';
-    }
-
     // Write processed string into a new file.
+    // TODO
 
     ?>
+    <table style="width:100%">
+        <?php
 
-
+        foreach ($processedList as $line) {
+            echo "<tr>";
+            foreach ($line as $header) {
+                echo "<td>";
+                print ($header) . "\t&nbsp;&nbsp;";
+                echo "</td>";
+            }
+            echo "</tr>";
+        }
+        ?>
+    </table>
 </body>
 
 </html

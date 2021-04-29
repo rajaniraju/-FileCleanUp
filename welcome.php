@@ -3,7 +3,7 @@
 <body>
 
     <?php
-    $fn = fopen("c:\\Temp\\test_data_in.txt", "r");
+    $current = $fn = fopen("c:\\Temp\\test_data_in.txt", "r");
     $headerProcessed = false;
     $processedList = [["ID", "First", "Last", "Type", "Eff.", "Term"]];
     $mArray = [];
@@ -37,7 +37,7 @@
 
         // $parts[2] = lname
         $lname = preg_replace('/[\W]/', '', $parts[2]);
-        //$laname = preg_replace('/[0-9]+/', '', $lname);
+        $lname = preg_replace('/[0-9]+/', '', $lname);
         array_push($processedLine, $lname);
 
         // $parts[3] = type
@@ -45,7 +45,9 @@
         array_push($processedLine, $type);
 
         // $parts[4] = effective
-        array_push($processedLine, $parts[4]);
+        $effective = $parts[4];
+        $effective = str_replace("\n", "", $effective);
+        array_push($processedLine, $effective);
 
         // Compute  new column 'Term'.
         $time = strtotime($parts[4]);
@@ -54,27 +56,16 @@
         $timestamp = strtotime($mod_date);
         $weekday = date("l", $timestamp);
         $normalized_weekday = strtolower($weekday);
-        echo $normalized_weekday;
         //check weekend
         if ($normalized_weekday == "saturday") {
             $modified1_date = date('Y-m-d', strtotime($mod_date . ' + 2 days'));
-            echo $modified1_date;
             array_push($processedLine, $modified1_date);
-            echo "true";
         } else if ($normalized_weekday == "sunday") {
             $modified2_date = date('Y-m-d', strtotime($mod_date . ' + 1 day'));
-            echo $modified2_date;
             array_push($processedLine, $modified2_date);
-            echo "true";
         } else {
-            echo "false";
             array_push($processedLine, $mod_date);
         }
-
-
-
-
-
 
         // 1. Convert string to date object
         // 2. Add 100 days to date object.
@@ -100,27 +91,33 @@
 
     fclose($fn);
 
-
     $processedList = array_merge($mArray, $dArray, $lArray);
 
     // Write processed string into a new file.
-    // TODO
+    $outputText = "ID\tFIRST\tLAST\tTYPE\tEFFECTIVE\tTERM\n";
 
     ?>
     <table>
         <?php
 
-        foreach ($processedList as $line) {
+        foreach ($processedList as $lineArray) {
             echo "<tr>";
-            foreach ($line as $header) {
+            $outputLine = "";
+            foreach ($lineArray as $columnValue) {
                 echo "<td>";
-                print ($header) . "\t&nbsp;&nbsp;";
+                print ($columnValue) . "\t&nbsp;&nbsp;";
+                $outputLine = $outputLine . $columnValue . "\t";
                 echo "</td>";
             }
+            $outputText = $outputText . $outputLine . "\n";
             echo "</tr>";
         }
+
+        // Creating output file.
+        file_put_contents("test_data_out.txt", $outputText);
         ?>
     </table>
+
 </body>
 
 </html

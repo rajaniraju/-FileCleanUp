@@ -30,7 +30,7 @@
         array_push($processedLine, $number);
 
         // $parts[1] = fname
-        //preg_replace($parts[1]) 
+        //ToDo - Move to a common function
         $fname = preg_replace('/[\W]/', '', $parts[1]);
         $fname = preg_replace('/[0-9]+/', '', $fname);
         array_push($processedLine, $fname);
@@ -50,6 +50,9 @@
         array_push($processedLine, $effective);
 
         // Compute  new column 'Term'.
+        // 1. Convert string to date object
+        // 2. Add 100 days to date object.
+        // 3. add the result as 'Term'
         $time = strtotime($parts[4]);
         $term = date('Y-m-d', $time);
         $mod_date = date('Y-m-d', strtotime($term . ' + 100 days'));
@@ -67,9 +70,7 @@
             array_push($processedLine, $mod_date);
         }
 
-        // 1. Convert string to date object
-        // 2. Add 100 days to date object.
-        // 3. add the result as 'Term'
+        //Push depending on M,L,D
 
         switch (strtoupper($type)) {
             case "M":

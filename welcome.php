@@ -12,10 +12,10 @@
         $result = fgets($fn);
 
         // Ignore title.
-        // if ($headerProcessed == false) {
-        //     $headerProcessed = true;
-        //     continue;
-        // }
+        if ($headerProcessed == false) {
+            $headerProcessed = true;
+            continue;
+        }
 
         // Split the line by tab.
         $parts = preg_split('/\t+/', $result);
@@ -70,7 +70,7 @@
     // TODO
 
     ?>
-    <table style="width:100%">
+    <table>
         <?php
 
         foreach ($processedList as $line) {
